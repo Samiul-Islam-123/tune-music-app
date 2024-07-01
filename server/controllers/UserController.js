@@ -48,6 +48,7 @@ const getUser = async (req, res) => {
 
 const createUser = async (req, res) => {
     //function to create a new user data
+    console.log("Musi Mushi....")
     const { username, email, profileImageURL, clerkID } = req.body;
 
     if (!username || !email || !profileImageURL || ! clerkID)
