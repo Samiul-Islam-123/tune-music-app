@@ -25,7 +25,7 @@ const getUser = async (req, res) => {
         const userData = await UserModel.findOne({
             clerkID: req.params.clerkID
         })
-        console.log(req.params)
+        //console.log(req.params)
 
         if (!userData)
             return res.json({

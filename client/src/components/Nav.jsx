@@ -1,6 +1,7 @@
 import React from 'react'
 import { TbMenu2 } from "react-icons/tb";
 import { CiSearch } from "react-icons/ci";
+import { UserButton } from '@clerk/clerk-react';
 
 function Nav() {
   return (
@@ -11,7 +12,9 @@ function Nav() {
                 <input type="text" className=' flex flex-1 focus:outline-none h-full' />
                 <CiSearch size={24} className=' ml-auto '/>
             </div>
-            <div className=' w-[5vh] h-[5vh] rounded-full border'></div>
+            <div className='flex items-center justify-center w-[5vh] h-[5vh] rounded-full border' style={{ width: '34px', height: '34px' }}>
+              <UserButton />
+            </div>
         </nav>
     </header>
   )
