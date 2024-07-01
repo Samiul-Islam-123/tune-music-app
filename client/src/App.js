@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import axios from 'axios';
 import { UserButton, useUser } from '@clerk/clerk-react';
 import Main from './components/Main';
+import './App.css'
 
 const App = () => {
     const { user , isSignedIn} = useUser();
