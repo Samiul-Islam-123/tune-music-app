@@ -48,7 +48,7 @@ const App = () => {
 
     return (
         <div>
-          <UserButton />
+          
             <Main />
         </div>
     );

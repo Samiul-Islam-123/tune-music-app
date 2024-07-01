@@ -26,7 +26,7 @@ app.use('/song', SongsRouter)
 app.use("/developer", DeveloperRouter)
 
 //route for testing cloudinary
-console.log(process.env)
+//console.log(process.env)
 app.post('/upload', upload.single('file'), (req,res) => {
     if(!req.file)
         return res.json({
