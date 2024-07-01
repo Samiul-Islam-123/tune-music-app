@@ -4,6 +4,7 @@ const dotenv = require('dotenv');
 
 const Connect = require("./dbConfig/Connect");
 const UserRouter = require("./routes/UserRoutes");
+const upload = require("./services/FileUpload");
 
 const PORT = process.env.PORT || 5500;
 const app = express();
@@ -18,6 +19,21 @@ app.get("/", (req,res) => {
 })
 
 app.use('/user', UserRouter)
+
+//route for testing cloudinary
+app.post('/upload', upload.single('file'), (req,res) => {
+    if(!req.file)
+        return res.json({
+            success : false,
+            message : "File not found"
+        })
+
+    res.json({
+        success : true,
+        message : "File uploaded successfully",
+        fileURL : req.file.path
+    })
+})
 
 app.listen(PORT, async() => {
     console.log("Server is starting...")
