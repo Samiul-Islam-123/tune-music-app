@@ -1,7 +1,6 @@
 import React from 'react'
 import Nav from './Nav'
 import Sidebar from './Sidebar'
-import { div } from 'three/examples/jsm/nodes/Nodes.js'
 import SongCard from './SongCard'
 import Playheader from './Playheader'
 
