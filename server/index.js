@@ -5,6 +5,8 @@ const dotenv = require('dotenv');
 const Connect = require("./dbConfig/Connect");
 const UserRouter = require("./routes/UserRoutes");
 const upload = require("./services/FileUpload");
+const DeveloperRouter = require("./routes/DeveloperRoutes");
+const SongsRouter = require("./routes/SongsRouter");
 
 const PORT = process.env.PORT || 5500;
 const app = express();
@@ -19,6 +21,9 @@ app.get("/", (req,res) => {
 })
 
 app.use('/user', UserRouter)
+app.use('/song', SongsRouter)
+
+app.use("/developer", DeveloperRouter)
 
 //route for testing cloudinary
 app.post('/upload', upload.single('file'), (req,res) => {

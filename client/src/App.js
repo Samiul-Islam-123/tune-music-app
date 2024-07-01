@@ -1,7 +1,7 @@
 // src/App.js
 import React, { useEffect } from 'react';
 import axios from 'axios';
-import { useUser } from '@clerk/clerk-react';
+import { UserButton, useUser } from '@clerk/clerk-react';
 import Main from './components/Main';
 
 const App = () => {
@@ -29,18 +29,26 @@ const App = () => {
       }
   };
 
+  const checkUserExistance = async() => {
+
+    const existResponse = await axios.get(`${process.env.REACT_APP_API_URL}/user/${user.id}`);
+    console.log(`${process.env.REACT_APP_API_URL}/user/${user.id}`)
+    console.log(existResponse)
+    if(existResponse.data.exists === false){
+      await saveUser();
+    }
+  }
+
     useEffect(() => {
-
-      console.log(isSignedIn)
-        if(isSignedIn === false)
-         console.log("Saving bitch...")
-
+      console.log(user)
+      checkUserExistance();
         
 
     }, [user]);
 
     return (
         <div>
+          <UserButton />
             <Main />
         </div>
     );

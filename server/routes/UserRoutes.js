@@ -6,7 +6,7 @@ const UserRouter = require('express').Router();
 UserRouter.get("/", getAllUsers);
 
 //route to get specific User
-UserRouter.get("/:userID", getUser);
+UserRouter.get("/:clerkID", getUser);
 
 //route to create a new user
 UserRouter.post("/", createUser);

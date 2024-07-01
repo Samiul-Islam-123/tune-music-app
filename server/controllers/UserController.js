@@ -25,15 +25,18 @@ const getUser = async (req, res) => {
         const userData = await UserModel.findOne({
             clerkID: req.params.clerkID
         })
+        console.log(req.params)
 
         if (!userData)
             return res.json({
                 success: false,
+                exists : false,
                 message: "User not found"
             })
 
         return res.json({
             success: true,
+            exists : true,
             userData: userData
         })
     }
@@ -45,6 +48,7 @@ const getUser = async (req, res) => {
         })
     }
 }
+
 
 const createUser = async (req, res) => {
     //function to create a new user data
