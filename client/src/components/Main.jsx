@@ -3,14 +3,15 @@ import Nav from './Nav'
 import Sidebar from './Sidebar'
 import { div } from 'three/examples/jsm/nodes/Nodes.js'
 import SongCard from './SongCard'
+import Playheader from './Playheader'
 
 const Main = ()=>{
   return (
     <>
         <Nav />
-        <div className='flex flex-1'>
+        <div className=' flex flex-1'>
             <Sidebar />
-            <div className=' flex flex-1 border'>
+            <div className='relative flex flex-1 border'>
               {
                 [{
                   image: "https://i1.sndcdn.com/artworks-0WovZIV3mGnvybu3-LeSzUA-t500x500.jpg",
@@ -28,9 +29,9 @@ const Main = ()=>{
                 
               }
                   
-              
+              <Playheader /> 
             </div>
-
+             
         </div>
     </>
   )
