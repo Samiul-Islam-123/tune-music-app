@@ -48,7 +48,7 @@ const App = () => {
     }, [user]);
 
     return (
-        <div className=' overflow-hidden'>
+        <div className=''>
           
             <Main />
         </div>

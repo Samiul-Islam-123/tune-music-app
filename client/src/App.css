@@ -22,5 +22,10 @@ input{
 }
 
 .custom-scrollbar::-webkit-scrollbar-track {
-    background: #f1f1f1;  /* color of the scrollbar track */
+    background:transparent;  /* color of the scrollbar track */
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: #1a0322; /* color of the scroll thumb */
+    border-radius: 6px;       /* roundness of the scroll thumb */
   }

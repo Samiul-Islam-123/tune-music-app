@@ -3,6 +3,7 @@ import Nav from './Nav'
 import Sidebar from './Sidebar'
 import SongCard from './SongCard'
 import Playheader from './Playheader'
+import Home from '../Pages/Home'
 
 const Main = ()=>{
   const songs = [
@@ -19,15 +20,7 @@ const Main = ()=>{
       <Nav click={click} setClick={setClick} />
       <div className='flex flex-1'>
         <Sidebar click={click} />
-        <div className='z-10 flex flex-col h-[80vh] mb-[13vh] flex-1 overflow-y-scroll custom-scrollbar'>
-          <h1 className='z-10 text-3xl font-bold ml-8 m-5'>Songs</h1>
-          <div className='z-10 h-24 flex flex-1 '>
-            {songs.map((item, index) => (
-              <SongCard key={index} image={item.image} title={item.title} />
-            ))}
-          </div>
-          <Playheader />
-        </div>
+        <Home />
       </div>
 
     </>
