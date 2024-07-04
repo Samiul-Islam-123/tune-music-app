@@ -8,6 +8,8 @@ const upload = require("./services/FileUpload");
 const DeveloperRouter = require("./routes/DeveloperRoutes");
 const SongsRouter = require("./routes/SongsRouter");
 const { authorizeSpotifyApi, searchTrack, getTrackDetails } = require("./services/Features");
+const ServiceRoute = require("./routes/ServiceRoutes");
+const main = require("./services/Automator");
 
 const PORT = process.env.PORT || 5500;
 const app = express();
@@ -25,6 +27,8 @@ app.use('/user', UserRouter)
 app.use('/song', SongsRouter)
 
 app.use("/developer", DeveloperRouter)
+
+app.use("/service", ServiceRoute);
 
 //route for testing cloudinary
 //console.log(process.env)
@@ -46,6 +50,14 @@ app.get("/trackName/:name", async(req,res) => {
     const details = await getTrackDetails(req.params.name);
     res.json({
         details : details
+    })
+})
+
+app.get("/automate", async(req,res) => {
+    const resp = await main();
+    res.json({
+        success : true,
+        message : "All done"
     })
 })
 

@@ -45,6 +45,38 @@ const getSongById = async (req, res) => {
     }
 };
 
+const SearchSong = async (req,res) => {
+    try{
+        const SearchQuery = req.query.SearchQuery;
+
+        const regex = new RegExp(SearchQuery, 'i');
+
+        const SearchedSongs = await SongModel.find({
+            $or: [
+                { SongTitle: { $regex: regex } },
+                { 'metadata.artists': { $regex: regex } },
+                { 'metadata.genres': { $regex: regex } }
+            ]
+        });
+
+        if(!SearchedSongs)
+            return res.json({
+                success : true,
+                message : "No results found :("
+            })
+
+        res.json({ success: true, count: SearchedSongs.length, SearchedSongs });
+
+    }
+    catch(error){
+        console.log(error);
+        res.json({
+            success : false,
+            message : "Server Error"
+        })
+    }
+}
+
 
 const updateSong = async (req, res) => {
     try {
@@ -152,4 +184,4 @@ const streamSong = async (req, res) => {
 
 
 
-module.exports = { getAllSongs, getSongById, deleteSong, updateSong, streamSong };
+module.exports = { getAllSongs, getSongById, deleteSong, updateSong, streamSong , SearchSong};
