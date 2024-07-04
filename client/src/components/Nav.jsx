@@ -4,6 +4,11 @@ import { CiSearch } from "react-icons/ci";
 import { UserButton } from '@clerk/clerk-react';
 
 function Nav({click,setClick}) {
+
+  async function SearchSongs() { 
+
+  }
+
   return (
     <header className=' z-10'>
         <nav className=' w-screen h-[7vh]  flex justify-between items-center px-8 border'>

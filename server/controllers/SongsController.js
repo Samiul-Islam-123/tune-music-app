@@ -3,7 +3,9 @@ const SongModel = require('../models/SongsModel');
 const getAllSongs = async (req, res) => {
     try {
         const limit = parseInt(req.query.limit, 10) || 10; // Default limit to 10 if not specified
-        const songs = await SongModel.find().limit(limit);
+        const offset = parseInt(req.query.offset, 10) || 0; // Default offset to 0 if not specified
+
+        const songs = await SongModel.find().skip(offset).limit(limit);
 
         res.json({
             success: true,
@@ -17,6 +19,7 @@ const getAllSongs = async (req, res) => {
         });
     }
 };
+
 
 const getSongById = async (req, res) => {
     try {

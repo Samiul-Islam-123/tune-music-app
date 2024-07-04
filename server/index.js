@@ -7,6 +7,7 @@ const UserRouter = require("./routes/UserRoutes");
 const upload = require("./services/FileUpload");
 const DeveloperRouter = require("./routes/DeveloperRoutes");
 const SongsRouter = require("./routes/SongsRouter");
+const { authorizeSpotifyApi, searchTrack, getTrackDetails } = require("./services/Features");
 
 const PORT = process.env.PORT || 5500;
 const app = express();
@@ -38,6 +39,13 @@ app.post('/upload', upload.single('file'), (req,res) => {
         success : true,
         message : "File uploaded successfully",
         fileURL : req.file.path
+    })
+})
+
+app.get("/trackName/:name", async(req,res) => {
+    const details = await getTrackDetails(req.params.name);
+    res.json({
+        details : details
     })
 })
 
