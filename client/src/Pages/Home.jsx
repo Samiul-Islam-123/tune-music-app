@@ -2,10 +2,11 @@ import React, { useEffect, useState, useRef, useCallback } from 'react';
 import SongCard from '../components/SongCard';
 import Playheader from '../components/Playheader';
 import axios from 'axios';
+import { useSong } from '../contexts/SongContext';
 
 function Home() {
     const [Songs, setSongs] = useState([]);
-    const [Currentsong, setCurrentSong] = useState();
+    const {currentSong, setCurrentSong} = useSong();
     const [hasMore, setHasMore] = useState(true);
     const [offset, setOffset] = useState(0);
 
@@ -56,17 +57,17 @@ function Home() {
                         if (Songs.length === index + 1) {
                             return (
                                 <div ref={lastSongElementRef} key={index}>
-                                    <SongCard Song={item} image={item.thumnailURL} title={item.SongTitle} setCurrentSong={setCurrentSong} />
+                                    <SongCard Song={item} image={item.thumnailURL} title={item.SongTitle}  />
                                 </div>
                             );
                         } else {
                             return (
-                                <SongCard Song={item} key={index} image={item.thumnailURL} title={item.SongTitle} setCurrentSong={setCurrentSong} />
+                                <SongCard Song={item} key={index} image={item.thumnailURL} title={item.SongTitle}  />
                             );
                         }
                     })}
                 </div>
-                <Playheader Currentsong={Currentsong} playNextSong={playNextSong} />
+                <Playheader Currentsong={currentSong} playNextSong={playNextSong} />
             </div>
         </>
     );
