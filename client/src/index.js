@@ -5,6 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { ClerkProvider, RedirectToSignIn, SignedIn, SignedOut, UserButton } from '@clerk/clerk-react';
 import { SongProvider } from './contexts/SongContext';
+import { RecommendedSongsProvider } from './contexts/RecommendedsongsContext';
 
 const publishKEY = process.env.REACT_APP_CLERK_PUBLISHABLE_KEY;
 
@@ -13,7 +14,9 @@ root.render(
   <ClerkProvider publishableKey={publishKEY}>
     <SignedIn>
       <SongProvider>
+        <RecommendedSongsProvider>
        <App />
+        </RecommendedSongsProvider>
       </SongProvider>
     </SignedIn>
     <SignedOut>

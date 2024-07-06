@@ -20,12 +20,10 @@ function Playheader({ Currentsong, playNextSong }) {
                     </div>
                     <div className="flex flex-col mr-auto">
                         <h3 className="text-lg font-bold text-white">{Currentsong.SongTitle}</h3>
-                        <a href={Currentsong.SongURL} className="text-sm text-blue-500" target="_blank" rel="noopener noreferrer">
-                            Listen to the song
-                        </a>
+                        
                     </div>
                     <div className='flex items-center justify-center w-full'>
-                        <Player audioSrc={Currentsong.SongURL} playNextSong={playNextSong} />
+                        <Player currentSongID = {Currentsong._id} audioSrc={Currentsong.SongURL} playNextSong={playNextSong} />
                     </div>
                 </div>
             )}

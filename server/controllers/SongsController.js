@@ -84,16 +84,28 @@ const RecommendSong = async(req,res) => {
     const targetSongFeatures = await extractFeatures(req.body.targetSongID);
     const otherSongFeatures = [];
 
-    //console.log(targetSongFeatures)
+    const targetSong = await SongModel.findOne({
+        _id : req.body.targetSongID
+    })
+
+    //console.log(targetSong)
 
     const otherSongs = await SongModel.find({
-        _id : { $ne: req.body.targetSongID }
+        _id : { $ne: req.body.targetSongID },
+        $or: [
+            { 'metadata.artists': { $in: targetSong.metadata.artists } }, // Songs with at least one common artist
+            { 'metadata.genres': { $in: targetSong.metadata.genres } }, // Songs with at least one common genre
+            { 'metadata.album.name': targetSong.metadata.album.name } // Songs from the same album
+            // You can add more criteria based on your data structure
+          ]
     }).limit(50);
+
+    //console.log(otherSongs)
 
     const similarities = await Promise.all(otherSongs.map(async (item) => {
         const otherSongFeatures = await extractFeatures(item._id);
         return {
-            song: item.SongTitle,
+            song: item,
             similarity: calculateSimilarity(targetSongFeatures, otherSongFeatures)
         };
     }));
@@ -101,9 +113,14 @@ const RecommendSong = async(req,res) => {
     // Sort the similarities in descending order
     similarities.sort((a, b) => b.similarity - a.similarity);
 
+    const top5recommendedSongs = similarities.slice(0,5);
+
+
+    //console.log(similarities)
+
     return res.json({
         success : true,
-        similarities : similarities
+        recommended : top5recommendedSongs
     });
     
 
