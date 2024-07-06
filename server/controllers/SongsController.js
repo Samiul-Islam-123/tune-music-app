@@ -1,4 +1,5 @@
 const SongModel = require('../models/SongsModel');  
+const { extractFeatures, calculateSimilarity } = require('../services/Recommendation');
 
 const getAllSongs = async (req, res) => {
     try {
@@ -75,6 +76,37 @@ const SearchSong = async (req,res) => {
             message : "Server Error"
         })
     }
+}
+
+//recommendation controller
+const RecommendSong = async(req,res) => {
+    //console.log("Am here...")
+    const targetSongFeatures = await extractFeatures(req.body.targetSongID);
+    const otherSongFeatures = [];
+
+    //console.log(targetSongFeatures)
+
+    const otherSongs = await SongModel.find({
+        _id : { $ne: req.body.targetSongID }
+    }).limit(50);
+
+    const similarities = await Promise.all(otherSongs.map(async (item) => {
+        const otherSongFeatures = await extractFeatures(item._id);
+        return {
+            song: item.SongTitle,
+            similarity: calculateSimilarity(targetSongFeatures, otherSongFeatures)
+        };
+    }));
+
+    // Sort the similarities in descending order
+    similarities.sort((a, b) => b.similarity - a.similarity);
+
+    return res.json({
+        success : true,
+        similarities : similarities
+    });
+    
+
 }
 
 
@@ -184,4 +216,4 @@ const streamSong = async (req, res) => {
 
 
 
-module.exports = { getAllSongs, getSongById, deleteSong, updateSong, streamSong , SearchSong};
+module.exports = { getAllSongs, getSongById, deleteSong, updateSong, streamSong , SearchSong, RecommendSong};
